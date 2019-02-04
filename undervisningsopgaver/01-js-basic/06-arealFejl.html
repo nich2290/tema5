@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="DA">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>areal fejl</title>
+</head>
+
+<body>
+    <script>
+        console.log("Hello");
+        let længde = prompt("Angiv længde");
+        let bredde = prompt("Angiv bredde");
+        //let areal = længde * bredde;
+        function areal(l, b) {
+            let a = (l * b);
+
+            if (a == 0) {
+                return (`husk længde og bredde skal være tal \n prøv igen`);
+            }
+        }
+        let resultat = areal(længde, bredde);
+
+        confirm(resultat);
+
+        if (confirm) {
+            location.reload();
+        }
+
+
+        //console.log(resultat);
+    </script>
+</body>
+
+</html>
