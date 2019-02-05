@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>grøn og rød</title>
+    <style>
+        .grøn {
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            background-color: green;
+            text-align: center;
+        }
+
+        .rød {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            border-radius: 50%;
+            line-height: 100px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="grøn"></div>
+    <div class="rød"></div>
+
+    <script>
+        let firkantURL = `http://helf-kea.dk/test/frog.png`;
+        let cirkelURL = `http://helf-kea.dk/test/gris.png`;
+        document.querySelector(".grøn").innerHTML = `<img src= ${firkantURL} alt= frø>`;
+        document.querySelector(".rød").innerHTML = `<img src=${cirkelURL} alt= gris>`;
+    </script>
+</body>
+</html>
