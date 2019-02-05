@@ -27,6 +27,10 @@
     <div id="display"></div>
 
     <script>
+        let playlist = ["Sound of Music", "Dancing in the Rain", "What a wonderful world", "Clarity", "Run with the wolves"];
+        playlist.forEach(sang => {
+            document.querySelector("#display").innerHTML += `${sang} <br>`;
+        })
     </script>
 </body>
 
