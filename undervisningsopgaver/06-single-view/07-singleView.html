@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        img {
+            max-width: 200px;
+        }
+
+
+
+        *,
+        body * {
+            box-sizing: border-box;
+        }
+
+        body {
+            padding: 0;
+            margin: 0;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+        #single {
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            background-color: hsla(0, 15%, 48%, 0.5);
+
+        }
+
+
+
+        #indhold {
+            min-height: 50vh;
+            background-color: white;
+            width: 70vw;
+            margin: 4rem auto;
+        }
+
+        #luk {
+            position: fixed;
+            right: 2rem;
+            padding-right: 2rem;
+        }
+
+        #luk button {
+            font-size: 2rem;
+            padding: 1rem 2rem;
+            cursor: pointer;
+        }
+
+        @media only screen and (min-width:600px) {
+            .data-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media only screen and (min-width:1000px) {
+            .data-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <div id="single">
+            <div id="luk">
+                <button>X</button>
+            </div>
+            <section>
+                <div id="indhold"></div>
+            </section>
+        </div>
+    </main>
+
+    <main>
+
+    </main>
+    <footer></footer>
+
+    <script>
+        let urlParams = new URLSearchParams(window.location.search);
+        let github = urlParams.get("github");
+        let allePersoner = [];
+        let filter = "alle";
+        document.addEventListener("DOMContentLoaded", hentJson);
+
+        async function hentJson() {
+            const myJson = await fetch("https://mandalskeawebspace.dk/claude_php/clean_up_spreadsheet.php?id=1OLlD_GRoz71piHvnW306omRAyHS7vtLOILQt-K0YF_c");
+            console.log(myJson);
+            allePersoner = await myJson.json();
+            console.log(allePersoner);
+            allePersoner.sort((a, b) => {
+                return a.navn.localeCompare(b.navn);
+            });
+
+
+            visPersoner();
+        }
+
+        function visPersoner() {
+            let modtager = document.querySelector("#indhold");
+            modtager.innerHTML = "";
+
+            allePersoner.forEach(person => {
+                if (person.github == github) {
+                    let template = `<article class="person">
+                                <h2>${person.navn}</h2>
+                                <img class="billede" src="${person.billede}" alt="${person.navn}">
+                                <p>Hold: ${person.hold}, Alder:${person.alder}</p>
+                                <h3>${person.navn}'s historie</h3>
+                                <p>${person.historie}</p>
+                                </article>`;
+                    modtager.insertAdjacentHTML("beforeend", template);
+                    modtager.lastElementChild.addEventListener("click", () => {
+                        visSingle(person);
+                    });
+
+                    function visSingle(person) {
+                        document.querySelector("#indhold").innerHTML = `
+                            <article class="person">
+                                <h2>${person.navn}</h2>
+                                <img class="billede" src="${person.billede}" alt="${person.navn}">
+                                <p>Hold: ${person.hold}, Alder:${person.alder}</p>
+                                <h3>${person.navn}'s historie</h3>
+                                <p>${person.historie}</p>
+                                </article>
+
+                        `;
+                        document.querySelector("#popup").style.display = "block";
+                        document.querySelector("#popup #luk").addEventListener("click", close);
+                    }
+
+                    function close() {
+                        document.querySelector("#popup").style.display = "none";
+                    }
+                }
+            })
+        }
+
+
+
+        visPersoner();
+    </script>
+</body>
+
+</html>
