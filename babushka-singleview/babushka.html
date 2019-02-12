@@ -23,23 +23,14 @@
             width: 100%;
             height: 200px;
 
-
+            background-color: orange;
             animation-name: switch;
             animation-duration: 10s;
             animation-iteration-count: infinite;
             animation-fill-mode: forwards;
-            background-image: url(img/moscow.jpg);
-            background-color: rgba(255, 165, 0, 0.19);
-
 
 
         }
-
-        #splash img {
-            opacity: 20%;
-        }
-
-
 
         @Keyframes switch {
             0% {
@@ -190,7 +181,6 @@
                 grid-template-columns: repeat(3, 1fr);
             }
         }
-
     </style>
 </head>
 
@@ -201,9 +191,7 @@
         </div>
         <div id="indhold"></div>
     </div>
-
     <div id=splash>
-
         <h3>* BISTRO BABUSHKA </h3>
     </div>
     <h1>Menu</h1>
@@ -221,6 +209,8 @@
     <section class="data-container transition"></section>
 
     <script>
+        let urlParams = new URLSearchParams(window.location.search);
+        let github = urlParams.get("github");
         let alleRetter = [];
         let filter = "alle";
         document.addEventListener("DOMContentLoaded", hentJson);
@@ -249,7 +239,7 @@
                 `;
                     modtager.insertAdjacentHTML("beforeend", template);
                     modtager.lastElementChild.addEventListener("click", () => {
-                        visSingle(ret);
+                        location.href = "singleview.html?id=" + ret.id;
                     });
 
                     function visSingle(ret) {
@@ -290,7 +280,6 @@
             visRetter();
         }
         visRetter();
-
     </script>
 </body>
 

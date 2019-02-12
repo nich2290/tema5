@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bistro Babushka</title>
+    <style>
+        img {
+            width: 100%;
+        }
+
+
+
+
+        #splash {
+            width: 100%;
+            height: 200px;
+
+            background-color: orange;
+            animation-name: switch;
+            animation-duration: 10s;
+            animation-iteration-count: infinite;
+            animation-fill-mode: forwards;
+
+
+        }
+
+
+
+        body {
+            margin: 0;
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        button {
+            padding: 1em;
+            margin-bottom: 1em;
+        }
+
+        body {
+            background-color: lightgray;
+            overflow: scroll;
+        }
+
+        .menu {
+            text-align: center;
+        }
+
+        .valgt {
+            background-color: orange;
+            transition: ease-in 0.5s;
+        }
+
+        .data-container {
+            display: grid;
+
+            grid-template-columns: repeat(1, 1fr);
+        }
+
+        /* SINGLE VIEW */
+
+        #single {
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            overflow: scroll;
+
+            background-color: hsla(0, 15%, 48%, 0.5);
+        }
+
+        .singleret img {
+            max-width: 50%;
+        }
+
+        .singleret {
+            padding: 1rem;
+
+
+        }
+
+
+
+        #indhold {
+            min-height: 50vh;
+            background-color: white;
+            width: 70vw;
+            margin: 4rem auto;
+        }
+
+        #tilbage {
+            position: fixed;
+            right: 2rem;
+            padding-right: 2rem;
+            left:
+        }
+
+        #tilbage button {
+            font-size: 2rem;
+            padding: 1rem 2rem;
+            cursor: pointer;
+
+        }
+
+        @media only screen and (min-width:600px) {
+            .data-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media only screen and (min-width:1000px) {
+            .data-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="splash"></div>
+    <div id="single">
+        <div id="tilbage">
+            <button>
+                <<</button> </div> <div id="indhold">
+        </div>
+    </div>
+
+
+    <script>
+        let urlParams = new URLSearchParams(window.location.search);
+        let id = urlParams.get("id");
+        let alleRetter = [];
+        let filter = "alle";
+        document.addEventListener("DOMContentLoaded", hentJson);
+
+        async function hentJson() {
+            const myJson = await fetch("https://mandalskeawebspace.dk/claude_php/clean_up_spreadsheet.php?id=1jxxxFoWBuMJ1qhQ9BQIAyKHmP38XtAF9_sQr0xo5JLo");
+            console.log(myJson);
+            alleRetter = await myJson.json();
+            console.log(alleRetter);
+            visRetter();
+        }
+
+        function visRetter() {
+            let modtager = document.querySelector("#indhold");
+            modtager.innerHTML = "";
+            alleRetter.forEach(ret => {
+                if (ret.id == id) {
+
+
+                    let template = `
+                    <article class="singleret">
+                                <h2>${ret.navn}</h2>
+                                <img src="img/large/${ret.billede}.jpg">
+                                <p>Beskrivelse: ${ret.lang}</p>
+                                <p>Oprindelse: ${ret.oprindelse}</p>
+                                <p>Pris: ${ret.pris}</p>
+
+
+                                </article>
+                `;
+                    modtager.insertAdjacentHTML("beforeend", template);
+                    document.querySelector("#tilbage button").addEventListener("click", () => {
+                        console.log("klik");
+                        location.href = "babushka.html";
+                    })
+
+
+
+
+                }
+            })
+        }
+
+
+
+        visRetter();
+    </script>
+</body>
+
+</html>
