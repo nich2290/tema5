@@ -51,13 +51,13 @@
             margin: 4rem auto;
         }
 
-        #luk {
+        #tilbage {
             position: fixed;
             right: 2rem;
             padding-right: 2rem;
         }
 
-        #luk button {
+        #tilbage button {
             font-size: 2rem;
             padding: 1rem 2rem;
             cursor: pointer;
@@ -74,19 +74,19 @@
                 grid-template-columns: repeat(3, 1fr);
             }
         }
+
     </style>
 </head>
 
 <body>
     <main>
         <div id="single">
-            <div id="luk">
-                <button>X</button>
+            <div id="tilbage">
+                <button>
+                    << </button> </div> <section>
+                        <div id="indhold"></div>
+                        </section>
             </div>
-            <section>
-                <div id="indhold"></div>
-            </section>
-        </div>
     </main>
 
     <main>
@@ -128,35 +128,30 @@
                                 <p>${person.historie}</p>
                                 </article>`;
                     modtager.insertAdjacentHTML("beforeend", template);
-                    modtager.lastElementChild.addEventListener("click", () => {
-                        visSingle(person);
-                    });
+                    document.querySelector("#tilbage button").addEventListener("click", () => {
+                        console.log("klik");
+                        location.href = "05-kald.html";
+                    })
 
-                    function visSingle(person) {
-                        document.querySelector("#indhold").innerHTML = `
-                            <article class="person">
-                                <h2>${person.navn}</h2>
-                                <img class="billede" src="${person.billede}" alt="${person.navn}">
-                                <p>Hold: ${person.hold}, Alder:${person.alder}</p>
-                                <h3>${person.navn}'s historie</h3>
-                                <p>${person.historie}</p>
-                                </article>
 
-                        `;
-                        document.querySelector("#popup").style.display = "block";
-                        document.querySelector("#popup #luk").addEventListener("click", close);
-                    }
 
-                    function close() {
-                        document.querySelector("#popup").style.display = "none";
-                    }
-                }
+
+
+
+
+
+
+                };
+
+
             })
         }
 
 
 
+
         visPersoner();
+
     </script>
 </body>
 
