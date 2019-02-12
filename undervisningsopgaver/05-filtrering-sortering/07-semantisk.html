@@ -49,15 +49,26 @@
 </head>
 
 <body>
-    <h1>Alle</h1>
-    <div class="menu">
-        <button class="filter valgt" data-hold="alle">Alle</button>
-        <button class="filter" data-hold="a">Hold A</button>
-        <button class="filter" data-hold="b">Hold B</button>
+    <header>
+        <h1>Alle</h1>
+        <nav class="menu">
+            <button class="filter valgt" data-hold="alle">Alle</button>
+            <button class="filter" data-hold="a">Hold A</button>
+            <button class="filter" data-hold="b">Hold B</button>
 
 
-    </div>
-    <section class="data-container"></section>
+        </nav>
+    </header>
+    <main>
+        <section id="list" class="data-container">
+            <article class="person"></article>
+            <article class="person"></article>
+            <article class="person"></article>
+            <article class="person"></article>
+
+        </section>
+    </main>
+    <footer></footer>
 
     <script>
         let allePersoner = [];
@@ -70,8 +81,10 @@
             allePersoner = await myJson.json();
             console.log(allePersoner);
             allePersoner.sort((a, b) => {
-                return a.alder - b.alder
+                return a.navn.localeCompare(b.navn);
             });
+
+
             visPersoner();
         }
 

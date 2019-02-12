@@ -70,8 +70,10 @@
             allePersoner = await myJson.json();
             console.log(allePersoner);
             allePersoner.sort((a, b) => {
-                return a.alder - b.alder
+                return a.navn.localeCompare(b.navn);
             });
+
+
             visPersoner();
         }
 

@@ -15,6 +15,18 @@
 
         }
 
+        *,
+        body * {
+            box-sizing: border-box;
+        }
+
+        body {
+            padding: 0;
+            margin: 0;
+        }
+
+
+
         .valgt {
             background-color: red;
         }
@@ -34,6 +46,37 @@
             grid-template-columns: repeat(1, 1fr);
         }
 
+        #popup {
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            background-color: hsla(0, 15%, 48%, 0.5);
+
+        }
+
+        .skjul {
+            display: none;
+        }
+
+        #indhold {
+            min-height: 50vh;
+            background-color: white;
+            width: 70vw;
+            margin: 4rem auto;
+        }
+
+        #luk {
+            position: fixed;
+            right: 2rem;
+            padding-right: 2rem;
+        }
+
+        #luk button {
+            font-size: 2rem;
+            padding: 1rem 2rem;
+        }
+
         @media only screen and (min-width:600px) {
             .data-container {
                 grid-template-columns: repeat(2, 1fr);
@@ -49,15 +92,32 @@
 </head>
 
 <body>
-    <h1>Alle</h1>
-    <div class="menu">
-        <button class="filter valgt" data-hold="alle">Alle</button>
-        <button class="filter" data-hold="a">Hold A</button>
-        <button class="filter" data-hold="b">Hold B</button>
-
-
+    <div id="popup" class="skjul">
+        <div id="luk">
+            <button>X</button>
+        </div>
+        <div id="indhold"></div>
     </div>
-    <section class="data-container"></section>
+    <header>
+        <h1>Alle</h1>
+        <nav class="menu">
+            <button class="filter valgt" data-hold="alle">Alle</button>
+            <button class="filter" data-hold="a">Hold A</button>
+            <button class="filter" data-hold="b">Hold B</button>
+
+
+        </nav>
+    </header>
+    <main>
+        <section id="list" class="data-container">
+            <article class="person"></article>
+            <article class="person"></article>
+            <article class="person"></article>
+            <article class="person"></article>
+
+        </section>
+    </main>
+    <footer></footer>
 
     <script>
         let allePersoner = [];
@@ -70,8 +130,10 @@
             allePersoner = await myJson.json();
             console.log(allePersoner);
             allePersoner.sort((a, b) => {
-                return a.alder - b.alder
+                return a.navn.localeCompare(b.navn);
             });
+
+
             visPersoner();
         }
 
